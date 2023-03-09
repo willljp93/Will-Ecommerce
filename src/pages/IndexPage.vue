@@ -26,26 +26,20 @@
         </q-carousel-slide> -->
         <q-carousel-slide
           :name="1"
-          img-src="https://via.placeholder.com/800x600"
+          img-src="~/assets/azucar-leche-huevo.webp"
         />
         <q-carousel-slide
           :name="2"
-          img-src="https://cdn.quasar.dev/img/parallax1.jpg"
+          img-src="~/assets/ChocolateCakeForTwo_Featured.jpg"
         />
-        <q-carousel-slide
-          :name="3"
-          img-src="https://cdn.quasar.dev/img/parallax2.jpg"
-        />
-        <q-carousel-slide
-          :name="4"
-          img-src="https://cdn.quasar.dev/img/quasar.jpg"
-        />
+        <q-carousel-slide :name="3" img-src="~/assets/dulces_finos.jpg" />
+        <q-carousel-slide :name="4" img-src="~/assets/panes_dulces.jpg" />
         <template v-slot:control>
           <q-carousel-control
             position="top"
             :offset="[16, 8]"
             class="text-primary text-subtitle1 text-center rounded-borders"
-            style="background: rgba(255, 255, 255, 0.8); padding: 4px 8px"
+            style="background: rgba(255, 255, 255, 0.5); padding: 4px 8px"
           >
             Descubre nuestros increíbles productos y disfruta del envío gratuito
             en todos los pedidos.
@@ -57,7 +51,7 @@
     <!-- Qtab -->
 
     <div class="q-pa-md" align="center">
-      <div style="max-width: 1000px">
+      <div style="max-width: 1200px">
         <q-tabs v-model="tab" align="justify" narrow-indicator class="q-mb-lg">
           <q-tab
             class="text-purple"
@@ -87,9 +81,9 @@
             <!-- Sección de productos destacados -->
             <q-tab-panel
               name="productosdestacados"
-              class="bg-purple text-white text-center"
+              class="bg-purple text-white text-center row q-gutter-md justify-evenly"
             >
-              <div class="text-h6">Productos destacados</div>
+              <div class="text-h4 col-12">Productos destacados</div>
               <div class="products">
                 <div
                   class="product row warp"
@@ -112,45 +106,108 @@
             <!-- Sección de promociones y descuentos -->
             <q-tab-panel
               name="promotions"
-              class="bg-orange text-white text-center"
+              class="bg-orange text-white text-center row q-gutter-md justify-evenly"
             >
-              <div class="text-h6">Promociones y descuentos</div>
-              <div class="promotions row">
-                <div
-                  class="promotion"
-                  v-for="(promotion, index) in promotions"
-                  :key="index"
-                >
-                  <img :src="promotion.image" :alt="promotion.title" />
-                  <h3>{{ promotion.title }}</h3>
-                  <p>{{ promotion.description }}</p>
-                  <div class="discount">
-                    {{ promotion.discount }}% de descuento
-                  </div>
-                  <div class="expires">
-                    Válido hasta {{ promotion.expires }}
-                  </div>
-                </div>
-              </div>
+              <div class="text-h4 col-12">Promociones y descuentos</div>
+              <!-- ================================== -->
+
+              <q-card
+                class="promocion"
+                flat
+                bordered
+                v-for="(promotion, index) in promotions"
+                :key="index"
+              >
+                <q-item class="q-pa-md">
+                  <q-item-section
+                    side
+                    class="text-orange text-weight-bolder text-subtitle1"
+                  >
+                    {{ promotion.title }}
+                  </q-item-section>
+
+                  <q-item-section>
+                    <q-badge color="red" floating transparent>
+                      <q-item-label class="discount text-weight-bold">
+                        {{ promotion.discount }}% de descuento
+                      </q-item-label>
+                    </q-badge>
+
+                    <q-item-label caption>
+                      <q-chip
+                        dense
+                        outline
+                        size="15px"
+                        class="glossy"
+                        color="orange"
+                        text-color="dark"
+                        icon="event"
+                      >
+                        <q-item-label caption class="text-dark">
+                          Válido hasta {{ promotion.expires }}
+                        </q-item-label>
+                      </q-chip>
+                    </q-item-label>
+                  </q-item-section>
+                </q-item>
+
+                <q-separator />
+
+                <q-card-section horizontal>
+                  <q-card-section class="text-subtitle1 text-dark">
+                    {{ promotion.description }}
+                  </q-card-section>
+
+                  <q-separator vertical />
+
+                  <q-card-section class="col-8 self-center no-padding">
+                    <q-img
+                      :ratio="4 / 3"
+                      fit="cover"
+                      :src="promotion.image"
+                      :alt="promotion.title"
+                    />
+                  </q-card-section>
+                </q-card-section>
+              </q-card>
             </q-tab-panel>
 
             <!-- Testimonios de clientes satisfechos -->
             <q-tab-panel
               name="testimonials"
-              class="bg-teal text-white text-center"
+              class="bg-teal text-white text-center row q-gutter-md justify-evenly"
             >
-              <div class="text-h6">Testimonios de clientes satisfechos</div>
-              <div class="testimonials">
-                <div
-                  class="testimonial"
-                  v-for="(testimonial, index) in testimonials"
-                  :key="index"
-                >
-                  <img :src="testimonial.image" :alt="testimonial.name" />
-                  <p>{{ testimonial.text }}</p>
-                  <cite>{{ testimonial.name }}</cite>
-                </div>
+              <div class="text-h4 col-12">
+                Testimonios de clientes satisfechos
               </div>
+
+              <q-card
+                class="testimonial-card text-dark col-4"
+                v-for="(testimonial, index) in testimonials"
+                :key="index"
+              >
+                <q-item>
+                  <q-item-section avatar>
+                    <q-avatar>
+                      <img :src="testimonial.avatar" />
+                    </q-avatar>
+                  </q-item-section>
+                  <q-item-section side> {{ testimonial.name }} </q-item-section>
+                  <div>
+                    <q-badge color="transparent" floating outline>
+                      <q-rating
+                        v-model="ratingModel"
+                        readonly
+                        size="1.6em"
+                        icon="thumb_up"
+                    /></q-badge>
+                  </div>
+                </q-item>
+                <q-separator inset />
+                <q-card-section class="q-pt-none">
+                  {{ testimonial.text }}
+                </q-card-section>
+              </q-card>
             </q-tab-panel>
           </q-tab-panels>
         </div>
@@ -164,26 +221,31 @@ import { ref } from "vue";
 
 const slide = ref(1);
 const autoplay = ref(true);
+const ratingModel = ref(3);
 
 const tab = ref("promotions");
+
+const props = defineProps({
+  promotions: Array,
+});
 
 const products = ref([
   {
     name: "Pastel de chocolate",
     description: "Delicioso pastel de chocolate con relleno de crema y frutas",
-    image: "https://via.placeholder.com/300x200",
+    image: "src/assets/fotos.jpg",
     price: 25,
   },
   {
     name: "Cupcakes",
     description: "Cupcakes de diferentes sabores: vainilla, chocolate y fresa",
-    image: "https://via.placeholder.com/300x200",
+    image: "src/assets/fotos.jpg",
     price: 5,
   },
   {
     name: "Galletas",
     description: "Galletas recién horneadas de diferentes sabores",
-    image: "https://via.placeholder.com/300x200",
+    image: "src/assets/fotos.jpg",
     price: 10,
   },
 ]);
@@ -193,17 +255,17 @@ const promotions = ref([
     title: "Oferta de temporada",
     description:
       "Aprovecha nuestra oferta de temporada y obtén un 10% de descuento en todos los pasteles",
-    image: "https://via.placeholder.com/300x200",
+    image: "src/assets/fotos.jpg",
     discount: 10,
-    expires: "31 de diciembre de 2021",
+    expires: "31 de diciembre de 2023",
   },
   {
     title: "Paquete de postres",
     description:
       "Compra nuestro paquete de postres y obtén un 15% de descuento en tu compra",
-    image: "https://via.placeholder.com/300x200",
+    image: "src/assets/fotos.jpg",
     discount: 15,
-    expires: "30 de noviembre de 2021",
+    expires: "30 de noviembre de 2023",
   },
 ]);
 
@@ -211,12 +273,32 @@ const testimonials = ref([
   {
     name: "María Pérez",
     text: "Los pasteles de esta tienda son los mejores que he probado en mi vida. ¡Los recomiendo totalmente!",
-    image: "https://via.placeholder.com/100x100",
+    avatar: "src/assets/avatar-testimonio.png",
   },
   {
     name: "Pedro García",
     text: "Siempre compro mis pasteles aquí y nunca me han decepcionado.",
-    image: "https://via.placeholder.com/100x100",
+    avatar: "src/assets/alien-testimonio.webp",
+  },
+  {
+    name: "María Pérez",
+    text: "Los pasteles de esta tienda son los mejores que he probado en mi vida. ¡Los recomiendo totalmente!",
+    avatar: "src/assets/avatar-testimonio.png",
+  },
+  {
+    name: "Pedro García",
+    text: "Siempre compro mis pasteles aquí y nunca me han decepcionado.",
+    avatar: "src/assets/alien-testimonio.webp",
+  },
+  {
+    name: "María Pérez",
+    text: "Los pasteles de esta tienda son los mejores que he probado en mi vida. ¡Los recomiendo totalmente!",
+    avatar: "src/assets/avatar-testimonio.png",
+  },
+  {
+    name: "Pedro García",
+    text: "Siempre compro mis pasteles aquí y nunca me han decepcionado.",
+    avatar: "src/assets/alien-testimonio.webp",
   },
 ]);
 
@@ -225,4 +307,14 @@ function addToCart(product) {
 }
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.testimonial-card {
+  width: 100%;
+  max-width: 350px;
+}
+
+.promocion {
+  width: 100%;
+  max-width: 450px;
+}
+</style>

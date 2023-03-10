@@ -1,9 +1,9 @@
 <template>
-  <q-card class="no-shadow" bordered>
+  <q-card class="no-shadow mycard" bordered>
     <q-item>
       <q-item-section avatar>
         <q-avatar size="70px">
-          <img :src="avatar">
+          <img :src="avatar" />
         </q-avatar>
       </q-item-section>
 
@@ -15,23 +15,30 @@
       </q-item-section>
 
       <q-item-section side>
-        <q-btn label="add" size="sm" class="bg-indigo-8 text-capitalize text-white"></q-btn>
+        <q-btn
+          label="add"
+          size="sm"
+          class="bg-indigo-8 text-capitalize text-white"
+        ></q-btn>
       </q-item-section>
     </q-item>
-
   </q-card>
 </template>
 
 <script>
-import {defineComponent} from 'vue'
+import { defineComponent } from "vue";
 
 export default defineComponent({
   name: "CardItem",
 
-  props: ['avatar', 'name', 'des']
-})
+  props: ["avatar", "name", "des"],
+});
 </script>
 
-<style scoped>
-
+<style scoped lang="scss">
+.mycard {
+  width: 100%;
+  max-width: 350px;
+  transition: box-shadow 0.2s ease-in-out;
+}
 </style>

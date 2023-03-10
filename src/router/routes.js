@@ -48,6 +48,10 @@ const routes = [
         path: "dashboard",
         component: () => import("pages/Admin/DashboardPage.vue"),
       },
+      {
+        path: "test",
+        component: () => import("pages/Admin/TestPage.vue"),
+      },
     ],
   },
 

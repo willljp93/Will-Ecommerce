@@ -84,6 +84,8 @@
               class="bg-purple text-white text-center row q-gutter-md justify-evenly"
             >
               <div class="text-h4 col-12">Productos destacados</div>
+              <!-- +++++++++++++++++++++++++ -->
+
               <div class="products">
                 <div
                   class="product row warp"

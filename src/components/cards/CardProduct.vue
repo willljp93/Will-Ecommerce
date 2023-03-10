@@ -1,16 +1,22 @@
 <template>
-  <q-card class="no-shadow" bordered>
+  <q-card class="no-shadow mycard" bordered>
     <q-img :src="data.img" height="220px">
-      <q-chip v-if="data.chip" :class="data.chip_class" :color="data.chip_color" :label="data.chip"></q-chip>
+      <q-chip
+        v-if="data.chip"
+        :class="data.chip_class"
+        :color="data.chip_color"
+        :label="data.chip"
+      ></q-chip>
     </q-img>
 
     <q-card-section>
       <q-btn
         fab
         color="teal-7"
-        icon="fas fa-cart-plus" padding="sm"
+        icon="fas fa-cart-plus"
+        padding="sm"
         class="absolute"
-        style="top: 0; right: 12px; transform: translateY(-50%);"
+        style="top: 0; right: 12px; transform: translateY(-50%)"
       />
     </q-card-section>
 
@@ -23,13 +29,14 @@
       </div>
       <div>
         <q-rating
-          v-model="data.rating"
+          :v-model="data.rating"
           max="5"
           size="1.5em"
           color="yellow"
           icon="star_border"
           icon-selected="star"
-          icon-half="star_half" readonly
+          icon-half="star_half"
+          readonly
           no-dimming
         />
       </div>
@@ -46,15 +53,19 @@
 </template>
 
 <script>
-import {defineComponent} from 'vue'
+import { defineComponent } from "vue";
 
 export default defineComponent({
   name: "CardProduct",
 
-  props: ['data']
-})
+  props: ["data"],
+});
 </script>
 
-<style scoped>
-
+<style scoped lang="scss">
+.mycard {
+  width: 100%;
+  max-width: 300px;
+  transition: box-shadow 0.2s ease-in-out;
+}
 </style>

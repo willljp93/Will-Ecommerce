@@ -85,26 +85,100 @@
             >
               <div class="text-h4 col-12">Productos destacados</div>
               <!-- +++++++++++++++++++++++++ -->
-
-              <div class="products">
-                <div
-                  class="product row warp"
-                  v-for="(product, index) in products"
-                  :key="index"
+              <div
+                class="featuredcard"
+                v-for="(featured, index) in featureds.items"
+                :key="index"
+              >
+                <q-card
+                  @mouseover="hoveredCard = featured.id"
+                  @mouseleave="hoveredCard = null"
+                  :class="{ 'shadow-2': hoveredCard === featured.id }"
                 >
-                  <img :src="product.image" :alt="product.name" />
-                  <h3>{{ product.name }}</h3>
-                  <p>{{ product.description }}</p>
-                  <div class="price">{{ product.price }} €</div>
-                  <q-btn
-                    color="primary"
-                    label="Agregar al carrito"
-                    @click="addToCart(product)"
+                  <q-img
+                    class="featuredcardimg"
+                    :ratio="16 / 9"
+                    fit="cover"
+                    :src="featured.image"
+                    :alt="featured.name"
                   />
-                </div>
+
+                  <q-badge
+                    class="q-badge"
+                    v-if="featured.discount"
+                    color="positive"
+                    floating
+                    transparent
+                  >
+                    {{ featured.discount }}%
+                  </q-badge>
+
+                  <q-badge
+                    class="q-badge"
+                    v-else
+                    color="negative"
+                    floating
+                    transparent
+                    label="Agotado"
+                  />
+                  <q-card-section>
+                    <q-btn
+                      fab
+                      color="primary"
+                      icon="shopping_bag"
+                      class="absolute"
+                      style="top: 0; right: 12px; transform: translateY(-50%)"
+                    />
+                    <div class="row no-wrap items-center">
+                      <q-item-label
+                        header=""
+                        class="col text-h6 text-left ellipsis q-pt-none"
+                      >
+                        {{ featured.name }}
+                      </q-item-label>
+                      <div
+                        class="col-auto text-grey text-caption row no-wrap items-center"
+                      >
+                        Comprar
+                      </div>
+                    </div>
+                    <q-rating
+                      self-end
+                      v-model="featured.rating"
+                      icon="star_border"
+                      icon-selected="star"
+                      :max="5"
+                      size="1.5em"
+                      v-if="featured.rating"
+                      readonly="true"
+                    />
+                  </q-card-section>
+                  <q-card-section class="q-pt-none">
+                    <div class="text-subtitle1 text-right text-dark">
+                      $ {{ featured.price }}
+                    </div>
+                    <div class="text-caption text-grey">
+                      {{ featured.description }}
+                    </div>
+                  </q-card-section>
+                  <q-separator />
+                  <q-card-actions
+                    vertical
+                    align="center"
+                    class="q-pa-none q-ma-xs"
+                  >
+                    <q-btn
+                      stretch
+                      flat
+                      icon="shopping_cart"
+                      color="primary"
+                      label="Agregar al carrito"
+                      @click="addToCart(featured)"
+                    />
+                  </q-card-actions>
+                </q-card>
               </div>
             </q-tab-panel>
-
             <!-- Sección de promociones y descuentos -->
             <q-tab-panel
               name="promotions"
@@ -112,12 +186,11 @@
             >
               <div class="text-h4 col-12">Promociones y descuentos</div>
               <!-- ================================== -->
-
               <q-card
                 class="promocion"
                 flat
                 bordered
-                v-for="(promotion, index) in promotions"
+                v-for="(promotion, index) in promotions.items"
                 :key="index"
               >
                 <q-item class="q-pa-md">
@@ -127,14 +200,13 @@
                   >
                     {{ promotion.title }}
                   </q-item-section>
-
                   <q-item-section>
                     <q-badge color="red" floating transparent>
                       <q-item-label class="discount text-weight-bold">
+                        <!-- {{ promotion.discount }}% de descuento -->
                         {{ promotion.discount }}% de descuento
                       </q-item-label>
                     </q-badge>
-
                     <q-item-label caption>
                       <q-chip
                         dense
@@ -152,16 +224,12 @@
                     </q-item-label>
                   </q-item-section>
                 </q-item>
-
                 <q-separator />
-
                 <q-card-section horizontal>
                   <q-card-section class="text-subtitle1 text-dark">
                     {{ promotion.description }}
                   </q-card-section>
-
                   <q-separator vertical />
-
                   <q-card-section class="col-8 self-center no-padding">
                     <q-img
                       :ratio="4 / 3"
@@ -173,7 +241,6 @@
                 </q-card-section>
               </q-card>
             </q-tab-panel>
-
             <!-- Testimonios de clientes satisfechos -->
             <q-tab-panel
               name="testimonials"
@@ -185,7 +252,7 @@
 
               <q-card
                 class="testimonial-card text-dark col-4"
-                v-for="(testimonial, index) in testimonials"
+                v-for="(testimonial, index) in testimonials.items"
                 :key="index"
               >
                 <q-item>
@@ -198,7 +265,7 @@
                   <div>
                     <q-badge color="transparent" floating outline>
                       <q-rating
-                        v-model="ratingModel"
+                        v-model="testimonial.rating"
                         readonly
                         size="1.6em"
                         icon="thumb_up"
@@ -219,90 +286,41 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { api } from "src/boot/axios";
+import { ref, onMounted } from "vue";
 
-const slide = ref(1);
-const autoplay = ref(true);
-const ratingModel = ref(3);
-
-const tab = ref("promotions");
-
-const props = defineProps({
-  promotions: Array,
+onMounted(async () => {
+  await getFeatureds();
+});
+onMounted(async () => {
+  await getPromotions();
+});
+onMounted(async () => {
+  await getTestimonials();
 });
 
-const products = ref([
-  {
-    name: "Pastel de chocolate",
-    description: "Delicioso pastel de chocolate con relleno de crema y frutas",
-    image: "src/assets/fotos.jpg",
-    price: 25,
-  },
-  {
-    name: "Cupcakes",
-    description: "Cupcakes de diferentes sabores: vainilla, chocolate y fresa",
-    image: "src/assets/fotos.jpg",
-    price: 5,
-  },
-  {
-    name: "Galletas",
-    description: "Galletas recién horneadas de diferentes sabores",
-    image: "src/assets/fotos.jpg",
-    price: 10,
-  },
-]);
+const hoveredCard = ref(null);
+const slide = ref(1);
+const autoplay = ref(true);
 
-const promotions = ref([
-  {
-    title: "Oferta de temporada",
-    description:
-      "Aprovecha nuestra oferta de temporada y obtén un 10% de descuento en todos los pasteles",
-    image: "src/assets/fotos.jpg",
-    discount: 10,
-    expires: "31 de diciembre de 2023",
-  },
-  {
-    title: "Paquete de postres",
-    description:
-      "Compra nuestro paquete de postres y obtén un 15% de descuento en tu compra",
-    image: "src/assets/fotos.jpg",
-    discount: 15,
-    expires: "30 de noviembre de 2023",
-  },
-]);
+const featureds = ref([]);
+const promotions = ref([]);
+const testimonials = ref([]);
 
-const testimonials = ref([
-  {
-    name: "María Pérez",
-    text: "Los pasteles de esta tienda son los mejores que he probado en mi vida. ¡Los recomiendo totalmente!",
-    avatar: "src/assets/avatar-testimonio.png",
-  },
-  {
-    name: "Pedro García",
-    text: "Siempre compro mis pasteles aquí y nunca me han decepcionado.",
-    avatar: "src/assets/alien-testimonio.webp",
-  },
-  {
-    name: "María Pérez",
-    text: "Los pasteles de esta tienda son los mejores que he probado en mi vida. ¡Los recomiendo totalmente!",
-    avatar: "src/assets/avatar-testimonio.png",
-  },
-  {
-    name: "Pedro García",
-    text: "Siempre compro mis pasteles aquí y nunca me han decepcionado.",
-    avatar: "src/assets/alien-testimonio.webp",
-  },
-  {
-    name: "María Pérez",
-    text: "Los pasteles de esta tienda son los mejores que he probado en mi vida. ¡Los recomiendo totalmente!",
-    avatar: "src/assets/avatar-testimonio.png",
-  },
-  {
-    name: "Pedro García",
-    text: "Siempre compro mis pasteles aquí y nunca me han decepcionado.",
-    avatar: "src/assets/alien-testimonio.webp",
-  },
-]);
+const getFeatureds = async () => {
+  const { data } = await api.get("/collections/featureds/records");
+  featureds.value = data;
+};
+const getPromotions = async () => {
+  const { data } = await api.get("/collections/promotions/records");
+  promotions.value = data;
+};
+const getTestimonials = async () => {
+  const { data } = await api.get("/collections/testimonials/records");
+  testimonials.value = data;
+};
+
+const tab = ref("promotions");
 
 function addToCart(product) {
   console.log(`Agregado al carrito: ${product.name}`);
@@ -314,9 +332,17 @@ function addToCart(product) {
   width: 100%;
   max-width: 350px;
 }
-
 .promocion {
   width: 100%;
   max-width: 450px;
+}
+.featuredcard {
+  width: 100%;
+  max-width: 300px;
+  transition: box-shadow 0.2s ease-in-out;
+}
+.shadow-2 {
+  box-shadow: 0px 0px 10px 2px #00000033;
+  transform: translateY(-5px);
 }
 </style>

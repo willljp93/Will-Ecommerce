@@ -67,9 +67,9 @@
           />
 
           <div class="row no-wrap items-center">
-            <q-item-label header="" class="col text-h6 ellipsis">{{
-              item.title
-            }}</q-item-label>
+            <q-item-label header="" class="col text-h6 ellipsis">
+              {{ item.title }}
+            </q-item-label>
             <div
               class="col-auto text-grey text-caption row no-wrap items-center"
             >
@@ -77,21 +77,23 @@
             </div>
           </div>
 
-          <q-rating
-            v-model="stars"
-            icon="star_border"
-            icon-selected="star"
-            :max="5"
-            size="1.5em"
-            v-if="item.rating"
-            :value="item.rating"
-            :readonly="false"
-          />
+          <div align="center">
+            <q-rating
+              v-model="stars"
+              icon="star_border"
+              icon-selected="star"
+              :max="5"
+              size="1.5em"
+              v-if="item.rating"
+              :value="item.rating"
+              :readonly="false"
+            />
+          </div>
         </q-card-section>
 
         <q-card-section class="q-pt-none">
-          <div class="text-subtitle1">$ {{ item.price }}</div>
-          <div class="text-caption text-grey">
+          <div class="text-subtitle1 text-right">$ {{ item.price }}</div>
+          <div class="text-caption text-grey text-center">
             {{ item.description }}
           </div>
         </q-card-section>

@@ -1,26 +1,26 @@
 <template>
-  <q-card
+  <!-- <q-card
     class="my-card"
-    @mouseover="hoveredCard = item.id"
+    @mouseover="hoveredCard = props.id"
     @mouseleave="hoveredCard = null"
-    :class="{ 'shadow-2': hoveredCard === item.id }"
+    :class="{ 'shadow-2': hoveredCard === props.id }"
   >
     <q-img
       ratio="1"
       fit="cover"
       class="q-img"
-      :src="item.image"
-      :alt="item.title"
+      :src="props.item.image"
+      :alt="props.items.title"
     />
 
     <q-badge
       class="q-badge"
-      v-if="item.discount"
+      v-if="props.items.discount"
       color="info"
       floating
       transparent
     >
-      {{ item.discount }}%
+      {{ props.items.discount }}%
     </q-badge>
 
     <q-badge
@@ -43,7 +43,7 @@
 
       <div class="row no-wrap items-center">
         <q-item-label header="" class="col text-h6 ellipsis">{{
-          item.title
+          props.items.title
         }}</q-item-label>
         <div class="col-auto text-grey text-caption row no-wrap items-center">
           Comprar
@@ -56,16 +56,16 @@
         icon-selected="star"
         :max="5"
         size="1.5em"
-        v-if="item.rating"
-        :value="item.rating"
+        v-if="props.items.rating"
+        :value="props.items.rating"
         :readonly="false"
       />
     </q-card-section>
 
     <q-card-section class="q-pt-none">
-      <div class="text-subtitle1">$ {{ item.price }}</div>
+      <div class="text-subtitle1">$ {{ props.items.price }}</div>
       <div class="text-caption text-grey">
-        {{ item.description }}
+        {{ props.items.description }}
       </div>
     </q-card-section>
 
@@ -77,13 +77,77 @@
         icon="shopping_cart"
         color="primary"
         label="Agregar al carrito"
-        @click="addToCart(item)"
+        @click="addToCart(props.items)"
       />
     </q-card-actions>
-  </q-card>
+  </q-card> -->
+  <div>{{ props.products }}</div>
 </template>
 <script setup>
-import { ref } from "vue";
+import { ref, defineProps, computed } from "vue";
+const props = defineProps({
+  // products: {
+  //   type: Array,
+  //   required: true,
+  // },
+  products: Object,
+  maxPrice: {
+    type: Number,
+    default: Infinity,
+  },
+  perPage: {
+    type: Number,
+    default: 6,
+  },
+  paginationColor: {
+    type: String,
+    default: "primary",
+  },
+  paginationSize: {
+    type: String,
+    default: "md",
+  },
+  paginationInput: {
+    type: Boolean,
+    default: true,
+  },
+});
+
+// FUNCIONES y VARIABLES
+const search = ref("");
+const cart = ref({
+  items: [],
+  total: 0,
+});
+const hoveredCard = ref(null);
+const currentPage = ref(1);
+
+const filteredItems = computed(() => {
+  return props.items.filter(
+    (item) =>
+      item.title.toLowerCase().includes(search.value.toLowerCase()) &&
+      item.price <= props.maxPrice
+  );
+});
+const totalPages = computed(() => {
+  return Math.ceil(filteredItems.value.length / props.perPage);
+});
+
+const displayedItems = computed(() => {
+  const startIndex = (currentPage.value - 1) * props.perPage;
+  const endIndex = startIndex + props.perPage;
+  return filteredItems.value.slice(startIndex, endIndex);
+});
+
+const addToCart = (product) => {
+  cart.value.items.push({
+    product: product,
+    quantity: 1,
+  });
+  cart.value.total += product.price;
+};
+
+const stars = ref(5);
 </script>
 <style scoped>
 .my-card {
@@ -95,11 +159,3 @@ import { ref } from "vue";
   object-fit: cover;
 }
 </style>
-
-<!-- Exportamos el componente directamente desde aquí -->
-<script>
-export default {
-  name: "ProductCard",
-  props,
-};
-</script>

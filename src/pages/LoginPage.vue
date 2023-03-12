@@ -52,24 +52,15 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import { defineComponent, ref } from "vue";
+const email = ref("");
+const password = ref("");
+const rememberMe = ref(false);
 
-export default defineComponent({
-  name: "LoginPage",
-
-  setup() {
-    const email = ref("");
-    const password = ref("");
-    const rememberMe = ref(false);
-
-    const forgotPassword = () => {
-      // Lógica para redirigir al usuario a la página de recuperación de contraseña
-    };
-
-    return { email, password, rememberMe, forgotPassword };
-  },
-});
+const forgotPassword = () => {
+  // Lógica para redirigir al usuario a la página de recuperación de contraseña
+};
 </script>
 
 <style scoped lang="scss">

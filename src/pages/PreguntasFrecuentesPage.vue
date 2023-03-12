@@ -68,11 +68,7 @@
   </q-page>
 </template>
 
-<script>
-export default {
-  name: "PreguntasFrecuentesPage",
-};
-</script>
+<script setup></script>
 
 <style lang="sass" scoped>
 .my-card

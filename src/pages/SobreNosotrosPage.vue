@@ -30,11 +30,7 @@
   </q-page>
 </template>
 
-<script>
-export default {
-  name: "SobreNosotrosPage",
-};
-</script>
+<script setup></script>
 
 <style lang="sass" scoped>
 .my-card

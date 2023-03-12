@@ -49,7 +49,6 @@
     </div>
 
     <!-- Qtab -->
-
     <div class="q-pa-md" align="center">
       <div style="max-width: 1200px">
         <q-tabs v-model="tab" align="justify" narrow-indicator class="q-mb-lg">
@@ -74,6 +73,8 @@
           <q-tab-panels
             v-model="tab"
             animated
+            infinite
+            swipeable
             transition-prev="scale"
             transition-next="scale"
             class="text-white text-center"
@@ -83,7 +84,7 @@
               name="productosdestacados"
               class="bg-purple text-white text-center row q-gutter-md justify-evenly"
             >
-              <div class="text-h4 col-12">Productos destacados</div>
+              <div class="text-h4 col-12">Productos Destacados</div>
               <!-- +++++++++++++++++++++++++ -->
               <div
                 class="featuredcard"
@@ -128,11 +129,12 @@
                       icon="shopping_bag"
                       class="absolute"
                       style="top: 0; right: 12px; transform: translateY(-50%)"
+                      @click="buyItem(featured)"
                     />
                     <div class="row no-wrap items-center">
                       <q-item-label
                         header=""
-                        class="col text-h6 text-left ellipsis q-pt-none"
+                        class="col text-h6 text-left ellipsis text-purple q-pt-none"
                       >
                         {{ featured.name }}
                       </q-item-label>
@@ -184,7 +186,7 @@
               name="promotions"
               class="bg-orange text-white text-center row q-gutter-md justify-evenly"
             >
-              <div class="text-h4 col-12">Promociones y descuentos</div>
+              <div class="text-h4 col-12">Promociones y Descuentos</div>
               <!-- ================================== -->
               <q-card
                 class="promocion"
@@ -247,7 +249,7 @@
               class="bg-teal text-white text-center row q-gutter-md justify-evenly"
             >
               <div class="text-h4 col-12">
-                Testimonios de clientes satisfechos
+                Testimonios de Clientes Satisfechos
               </div>
 
               <q-card
@@ -261,10 +263,13 @@
                       <img :src="testimonial.avatar" />
                     </q-avatar>
                   </q-item-section>
-                  <q-item-section side> {{ testimonial.name }} </q-item-section>
+                  <q-item-section side class="text-weight-bold">
+                    {{ testimonial.name }}
+                  </q-item-section>
                   <div>
                     <q-badge color="transparent" floating outline>
                       <q-rating
+                        class="testimonial-rating"
                         v-model="testimonial.rating"
                         readonly
                         size="1.6em"
@@ -323,7 +328,10 @@ const getTestimonials = async () => {
 const tab = ref("promotions");
 
 function addToCart(product) {
-  console.log(`Agregado al carrito: ${product.name}`);
+  console.log(`Agregado al carrito: ${(product.id, product.name)}`);
+}
+function buyItem(product) {
+  console.log(`Comprado: ${(product.id, product.name)}`);
 }
 </script>
 
@@ -339,10 +347,14 @@ function addToCart(product) {
 .featuredcard {
   width: 100%;
   max-width: 300px;
-  transition: box-shadow 0.2s ease-in-out;
+  transition: box-shadow 0.5s ease-in-out;
 }
 .shadow-2 {
-  box-shadow: 0px 0px 10px 2px #00000033;
+  box-shadow: 0px 0px 10px 5px #00000033;
   transform: translateY(-5px);
+}
+.testimonial-rating {
+  margin-right: 5px;
+  transform: translateY(5px);
 }
 </style>

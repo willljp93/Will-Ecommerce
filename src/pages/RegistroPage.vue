@@ -67,21 +67,13 @@
   </div>
 </template>
 
-<script>
-import { defineComponent, ref, computed } from "vue";
+<script setup>
+import { ref } from "vue";
 
-export default defineComponent({
-  name: "RegisterPage",
-
-  setup() {
-    const name = ref("");
-    const email = ref("");
-    const password = ref("");
-    const confirmPassword = ref("");
-
-    return { name, email, password, confirmPassword };
-  },
-});
+const name = ref("");
+const email = ref("");
+const password = ref("");
+const confirmPassword = ref("");
 </script>
 
 <style scoped lang="scss">

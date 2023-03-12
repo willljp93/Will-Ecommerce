@@ -57,13 +57,8 @@
   </q-page>
 </template>
 
-<script>
+<script setup>
 import FormContact from "src/components/FormContact.vue";
-
-export default {
-  name: "ContactoPage",
-  components: { FormContact },
-};
 </script>
 
 <style lang="sass" scoped>

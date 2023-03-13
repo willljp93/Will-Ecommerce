@@ -6,117 +6,142 @@
       <q-card-section class="text-h6 q-pb-none">
         <q-item>
           <q-item-section avatar class="">
-            <q-icon color="blue" name="fas fa-chart-line" size="44px" />
+            <q-icon color="blue" name="las la-chart-line" size="44px" />
           </q-item-section>
-
           <q-item-section>
-            <div class="text-h6">Product Sales Stats</div>
+            <div class="text-h6">Estadísticas de ventas de productos</div>
           </q-item-section>
         </q-item>
       </q-card-section>
       <q-card-section class="row">
-        <div class="col-lg-7 col-sm-12 col-xs-12 col-md-7">
-          <div class="row">
-            <div class="col-lg-3 col-md-3 col-xs-6 col-sm-6">
+        <div class="col-lg-9 col-sm-12 col-xs-12 col-md-9">
+          <div class="row justify-between">
+            <!-- ------------------ -->
+            <div class="col-lg-2 col-md-2 col-xs-5 col-sm-5">
               <q-item>
                 <q-item-section top avatar>
-                  <q-avatar color="blue" text-color="white" icon="bluetooth" />
+                  <q-avatar
+                    color="blue"
+                    text-color="white"
+                    icon="las la-birthday-cake"
+                  />
                 </q-item-section>
                 <q-item-section>
                   <q-item-label class="text-h6 text-blue text-bold"
-                    >4321</q-item-label
+                    >1</q-item-label
                   >
-                  <q-item-label caption>Fashions</q-item-label>
+                  <q-item-label caption>Pasteles</q-item-label>
                 </q-item-section>
               </q-item>
             </div>
-            <div class="col-lg-3 col-md-3 col-xs-6 col-sm-6">
+            <!-- ------------------ -->
+            <div class="col-lg-2 col-md-2 col-xs-5 col-sm-5">
               <q-item>
                 <q-item-section top avatar>
                   <q-avatar
                     color="grey-8"
                     text-color="white"
-                    icon="bluetooth"
+                    icon="las la-drum-steelpan"
                   />
                 </q-item-section>
                 <q-item-section>
                   <q-item-label class="text-h6 text-grey-8 text-bold"
-                    >9876</q-item-label
+                    >0</q-item-label
                   >
-                  <q-item-label caption>Electronics</q-item-label>
+                  <q-item-label caption>Flanes</q-item-label>
                 </q-item-section>
               </q-item>
             </div>
-            <div class="col-lg-3 col-md-3 col-xs-6 col-sm-6">
+            <!-- ------------------ -->
+            <div class="col-lg-2 col-md-2 col-xs-5 col-sm-5">
               <q-item>
                 <q-item-section top avatar>
                   <q-avatar
                     color="green-6"
                     text-color="white"
-                    icon="bluetooth"
+                    icon="las la-cookie"
                   />
                 </q-item-section>
                 <q-item-section>
                   <q-item-label class="text-h6 text-green-6 text-bold"
-                    >345</q-item-label
+                    >0</q-item-label
                   >
-                  <q-item-label caption>Toys</q-item-label>
+                  <q-item-label caption>Repostería</q-item-label>
                 </q-item-section>
               </q-item>
             </div>
-            <div class="col-lg-3 col-md-3 col-xs-6 col-sm-6">
+            <!-- ------------------ -->
+            <div class="col-lg-2 col-md-2 col-xs-5 col-sm-5">
               <q-item>
                 <q-item-section top avatar>
                   <q-avatar
                     color="orange-8"
                     text-color="white"
-                    icon="bluetooth"
+                    icon="las la-bread-slice"
                   />
                 </q-item-section>
                 <q-item-section>
                   <q-item-label class="text-h6 text-orange-8 text-bold"
-                    >1021</q-item-label
+                    >0</q-item-label
                   >
-                  <q-item-label caption>Vouchers</q-item-label>
+                  <q-item-label caption>Panadería</q-item-label>
+                </q-item-section>
+              </q-item>
+            </div>
+            <div class="col-lg-2 col-md-2 col-xs-5 col-sm-5">
+              <q-item>
+                <q-item-section top avatar>
+                  <q-avatar
+                    color="pink-8"
+                    text-color="white"
+                    icon="las la-hanukiah"
+                  />
+                </q-item-section>
+                <q-item-section>
+                  <q-item-label class="text-h6 text-pink-8 text-bold"
+                    >0</q-item-label
+                  >
+                  <q-item-label caption>Decoraciones</q-item-label>
                 </q-item-section>
               </q-item>
             </div>
           </div>
           <div></div>
         </div>
-        <div class="col-lg-5 col-sm-12 col-xs-12 col-md-5">
+        <div class="col-lg-3 col-sm-12 col-xs-12 col-md-3 text-center">
           <q-item>
             <q-item-section avatar class="">
               <q-icon
                 color="blue"
-                name="fas fa-gift"
+                name="las la-gift"
                 class="q-pl-md"
-                size="24px"
+                size="32px"
               />
             </q-item-section>
 
             <q-item-section>
-              <div class="text-h6">TODAY SALES</div>
+              <div class="text-h6">VENTAS DE HOY</div>
             </q-item-section>
           </q-item>
           <div></div>
         </div>
       </q-card-section>
+      <!-- ------------------------- -->
     </q-card>
     <q-card class="q-mt-sm no-shadow" bordered>
       <q-card-section class="text-h6 q-pb-none">
         <q-item>
           <q-item-section avatar class="">
-            <q-icon color="blue" name="fa fa-shopping-cart" size="44px" />
+            <q-icon color="blue" name="la la-shopping-cart" size="44px" />
           </q-item-section>
 
           <q-item-section>
             <q-item-label>
-              <div class="text-h6">Latest Sales</div>
+              <div class="text-h6">Últimas ventas</div>
             </q-item-label>
             <q-item-label caption class="text-black">
-              Monitoring Your products. Tracking sales, and shipping status
-              here.
+              Seguimiento de sus productos. Seguimiento de ventas y estado de
+              envío aquí.
             </q-item-label>
           </q-item-section>
         </q-item>
@@ -156,7 +181,7 @@
                 <q-item-section>
                   <q-item-label>{{ props.row.name }}</q-item-label>
                   <q-item-label caption class=""
-                    >Purchased date: <br />{{ props.row.date }}</q-item-label
+                    >Fecha de compra: <br />{{ props.row.date }}</q-item-label
                   >
                 </q-item-section>
               </q-item>
@@ -242,7 +267,7 @@
         </q-table>
       </q-card-section>
     </q-card>
-
+    <!-- ------------------------------- -->
     <div class="row q-col-gutter-sm q-py-sm">
       <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
         <q-card class="no-shadow" bordered>
@@ -258,13 +283,13 @@
               name="contact"
               :class="tab == 'contact' ? 'text-blue' : ''"
               icon="contacts"
-              label="Contact"
+              label="Contactos"
             />
             <q-tab
               name="message"
               :class="tab == 'message' ? 'text-blue' : ''"
               icon="comment"
-              label="Message"
+              label="Mensajes"
             >
               <q-badge color="red" floating>{{ messages.length }}</q-badge>
             </q-tab>
@@ -272,7 +297,7 @@
               name="notification"
               :class="tab == 'notification' ? 'text-blue' : ''"
               icon="notifications"
-              label="Notification"
+              label="Notificaciones"
             >
               <q-badge color="red" floating>4</q-badge>
             </q-tab>
@@ -392,7 +417,7 @@
           </q-tab-panels>
         </q-card>
       </div>
-
+      <!-- ---------------------------- -->
       <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
         <q-carousel
           animated
@@ -410,21 +435,21 @@
 
                 <q-card-section>
                   <div class="text-h6">
-                    Work with something that you like, like…
+                    Trabaja con algo que te guste, como...
                   </div>
                   <div class="text-subtitle2">by John Doe</div>
                 </q-card-section>
 
                 <q-card-actions align="left">
                   <q-btn
-                    label="Share"
+                    label="Compartir"
                     dense
                     color="primary"
                     text-color="blue"
                     outline
                   />
                   <q-btn
-                    label="Learn More"
+                    label="Aprende más"
                     dense
                     color="primary"
                     text-color="blue"
@@ -588,7 +613,7 @@ const sales_data = [
   {
     name: "Pratik Patel",
     Progress: 70,
-    status: "Canceled",
+    status: "Cancelado",
     stock: "14 / 30",
     date: "23 Oct 2018",
     avatar:
@@ -601,7 +626,7 @@ const sales_data = [
   {
     name: "Mayank Patel",
     Progress: 60,
-    status: "Sent",
+    status: "Enviado",
     date: "11 Nov 2018",
     stock: "25 / 70",
     avatar:
@@ -614,7 +639,7 @@ const sales_data = [
   {
     name: "Mayur Patel",
     Progress: 30,
-    status: "Pending",
+    status: "Pendiente",
     stock: "35 / 50",
     avatar:
       "https://avatars0.githubusercontent.com/u/55240045?s=400&u=cf9bffc2bd2d8e42ca6e5abf40ddd6c1a03ce2860&v=4",
@@ -627,7 +652,7 @@ const sales_data = [
   {
     name: "Jeff Galbraith",
     Progress: 100,
-    status: "Paid",
+    status: "Pagado",
     stock: "18 / 33",
     avatar:
       "https://avatars1.githubusercontent.com/u/10262924?s=400&u=9f601b344d597ed76581e3a6a10f3c149cb5f6dc&v=4",
@@ -641,14 +666,14 @@ const sales_data = [
 const sales_column = [
   {
     name: "Products",
-    label: "Products",
+    label: "Productos",
     field: "Products",
     sortable: true,
     align: "left",
   },
   {
     name: "Name",
-    label: "Buyer",
+    label: "Comprador",
     field: "name",
     sortable: true,
     align: "left",
@@ -663,7 +688,7 @@ const sales_column = [
   },
   {
     name: "Status",
-    label: "Status",
+    label: "Estado",
     field: "status",
     sortable: true,
     align: "left",
@@ -671,7 +696,7 @@ const sales_column = [
   },
   {
     name: "Stock",
-    label: "Stock",
+    label: "Existencias",
     field: "task",
     sortable: true,
     align: "left",
@@ -837,13 +862,13 @@ export default defineComponent({
         return "red";
       },
       getChipColor(status) {
-        if (status == "Canceled") {
+        if (status == "Cancelado") {
           return "negative";
-        } else if (status == "Sent") {
+        } else if (status == "Enviado") {
           return "positive";
-        } else if (status == "Pending") {
+        } else if (status == "Pendiente") {
           return "warning";
-        } else if (status == "Paid") {
+        } else if (status == "Pagado") {
           return "info";
         } else {
           return "dark";

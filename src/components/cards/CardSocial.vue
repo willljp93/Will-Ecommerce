@@ -1,123 +1,149 @@
 <template>
-  <q-card class="bg-transparent no-shadow no-border mycard" bordered>
-    <q-card-section class="q-pa-none">
-      <div class="row q-col-gutter-sm">
-        <div
-          v-for="(item, index) in items"
-          :key="index"
-          class="col-md-3 col-sm-12 col-xs-12"
+  <div class="q-pa-md">
+    <q-carousel
+      v-model="slide"
+      vertical
+      transition-prev="flip-down"
+      transition-next="flip-up"
+      swipeable
+      infinite
+      animated
+      :autoplay="autoplay"
+      @mouseenter="autoplay = false"
+      @mouseleave="autoplay = true"
+      height="200px"
+    >
+      <q-carousel-slide name="false" class="row no-wrap flex-center">
+        <q-card
+          class="bg-transparent no-shadow no-border flex-center mycard"
+          bordered
         >
-          <q-item :style="`background-color: ${item.color1}`" class="q-pa-none">
-            <q-item-section
-              v-if="icon_position === 'left'"
-              side
-              :style="`background-color: ${item.color2}`"
-              class="q-pa-lg q-mr-none text-white"
-            >
-              <q-icon :name="item.icon" color="white" size="24px"></q-icon>
-            </q-item-section>
-            <q-item-section class="q-pa-md q-ml-none text-white">
-              <q-item-label class="text-white text-h6 text-weight-bolder">{{
-                item.value
-              }}</q-item-label>
-              <q-item-label>{{ item.title }}</q-item-label>
-            </q-item-section>
-            <q-item-section
-              v-if="icon_position === 'right'"
-              side
-              class="q-mr-md text-white"
-            >
-              <q-icon :name="item.icon" color="white" size="44px"></q-icon>
-            </q-item-section>
-          </q-item>
-        </div>
-      </div>
-    </q-card-section>
-  </q-card>
+          <q-card-section class="q-pa-none">
+            <div class="row q-col-gutter-md col-12">
+              <div
+                v-for="(item, index) in cards.items"
+                :key="index"
+                class="col-md-3 col-sm-6 col-xs-12"
+              >
+                <q-item
+                  v-if="item.left === false"
+                  :style="`background-color: ${item.color1}`"
+                  class="q-pa-none"
+                >
+                  <q-item-section
+                    v-if="item.left === 'true'"
+                    side
+                    :style="`background-color: ${item.color2}`"
+                    class="q-pa-md q-mr-none text-white"
+                  >
+                    <q-icon
+                      :name="item.icon"
+                      color="white"
+                      size="24px"
+                    ></q-icon>
+                  </q-item-section>
+                  <q-item-section class="q-pa-lg q-ml-none text-white">
+                    <q-item-label
+                      class="text-white text-h6 text-weight-bolder"
+                      >{{ item.value }}</q-item-label
+                    >
+                    <q-item-label>{{ item.title }}</q-item-label>
+                  </q-item-section>
+                  <q-item-section
+                    v-if="item.left === 'true'"
+                    side
+                    class="q-mr-md text-white"
+                  >
+                    <q-icon
+                      :name="item.icon"
+                      color="white"
+                      size="44px"
+                    ></q-icon>
+                  </q-item-section>
+                </q-item>
+              </div>
+            </div>
+          </q-card-section>
+        </q-card>
+      </q-carousel-slide>
+      <q-carousel-slide name="true" class="row no-wrap flex-center">
+        <q-card
+          class="bg-transparent no-shadow no-border flex-center mycard"
+          bordered
+        >
+          <q-card-section class="q-pa-none">
+            <div class="row q-col-gutter-md col-12">
+              <div
+                v-for="(item, index) in cards.items"
+                :key="index"
+                class="col-md-3 col-sm-6 col-xs-12"
+              >
+                <q-item
+                  v-if="item.left === true"
+                  :style="`background-color: ${item.color1}`"
+                  class="q-pa-none"
+                >
+                  <q-item-section
+                    v-if="item.left === 'true'"
+                    side
+                    :style="`background-color: ${item.color2}`"
+                    class="q-pa-md q-mr-none text-white"
+                  >
+                    <q-icon
+                      :name="item.icon"
+                      color="white"
+                      size="24px"
+                    ></q-icon>
+                  </q-item-section>
+                  <q-item-section class="q-pa-lg q-ml-none text-white">
+                    <q-item-label
+                      class="text-white text-h6 text-weight-bolder"
+                      >{{ item.value }}</q-item-label
+                    >
+                    <q-item-label>{{ item.title }}</q-item-label>
+                  </q-item-section>
+                  <q-item-section
+                    v-if="item.left === 'true'"
+                    side
+                    class="q-mr-md text-white"
+                  >
+                    <q-icon
+                      :name="item.icon"
+                      color="white"
+                      size="44px"
+                    ></q-icon>
+                  </q-item-section>
+                </q-item>
+              </div>
+            </div>
+          </q-card-section>
+        </q-card>
+      </q-carousel-slide>
+    </q-carousel>
+  </div>
 </template>
 
-<script>
-import { defineComponent } from "vue";
+<script setup>
+import { api } from "src/boot/axios";
+import { ref, onMounted } from "vue";
 
-export default defineComponent({
-  name: "CardSocial",
-  props: {
-    icon_position: {
-      required: false,
-      default: "left",
-    },
-  },
-  computed: {
-    items: function () {
-      return this.icon_position === "left"
-        ? [
-            {
-              title: "My Account",
-              icon: "person",
-              value: "200",
-              color1: "#5064b5",
-              color2: "#3e51b5",
-            },
-            {
-              title: "Followers",
-              icon: "lab la-twitter",
-              value: "500",
-              color1: "#f37169",
-              color2: "#f34636",
-            },
-            {
-              title: "Connections",
-              icon: "lab la-connectdevelop",
-              value: "50",
-              color1: "#ea6a7f",
-              color2: "#ea4b64",
-            },
-            {
-              title: "Website Visits",
-              icon: "bar_chart",
-              value: "1020",
-              color1: "#a270b1",
-              color2: "#9f52b1",
-            },
-          ]
-        : [
-            {
-              title: "Monthly Income",
-              icon: "las la-file-invoice-dollar",
-              value: "$ 0",
-              color1: "#546bfa",
-              color2: "#3e51b5",
-            },
-            {
-              title: "Weekly Sales",
-              icon: "las la-chart-bar",
-              value: "0",
-              color1: "#3a9688",
-              color2: "#3e51b5",
-            },
-            {
-              title: "New Customers",
-              icon: "las la-chart-line",
-              value: "0",
-              color1: "#7cb342",
-              color2: "#3e51b5",
-            },
-            {
-              title: "Active Users",
-              icon: "person",
-              value: "1",
-              color1: "#f88c2b",
-              color2: "#3e51b5",
-            },
-          ];
-    },
-  },
+onMounted(async () => {
+  await getCardSocial();
 });
+const cards = ref([]);
+const getCardSocial = async () => {
+  const { data } = await api.get("/collections/cardSocial/records");
+  cards.value = data;
+};
+
+const slide = ref("style");
+const autoplay = ref(true);
 </script>
+
 <style scoped lang="scss">
 .mycard {
   width: 100%;
-  max-width: 800px;
+  max-width: 1000px;
   transition: box-shadow 0.2s ease-in-out;
 }
 </style>

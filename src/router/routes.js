@@ -52,6 +52,10 @@ const routes = [
         path: "test",
         component: () => import("pages/Admin/TestPage.vue"),
       },
+      {
+        path: "tablesdata",
+        component: () => import("pages/Admin/TablesDataPage.vue"),
+      },
     ],
   },
 

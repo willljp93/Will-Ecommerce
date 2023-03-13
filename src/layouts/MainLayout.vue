@@ -27,6 +27,14 @@
 
         <div class="row col justify-end items-center content-end">
           <q-btn
+            dense
+            stretch
+            unelevated
+            padding="2px"
+            icon-right="settings_applications"
+            to="/admin/dashboard"
+          />
+          <q-btn
             unelevated
             dense
             padding="5px"

@@ -86,12 +86,15 @@
         <q-expansion-item icon="pages" label="Páginas">
           <q-list class="q-pl-lg">
             <!-- ========== -->
-            <q-item to="/Login-1" active-class="q-item-no-link-highlighting">
+            <q-item
+              to="/admin/tablesData"
+              active-class="q-item-no-link-highlighting"
+            >
               <q-item-section avatar>
-                <q-icon name="email" />
+                <q-icon name="table_chart" />
               </q-item-section>
               <q-item-section>
-                <q-item-label>Login</q-item-label>
+                <q-item-label>Tables Data</q-item-label>
               </q-item-section>
             </q-item>
             <!-- ========== -->
